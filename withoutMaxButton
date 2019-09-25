@@ -19,27 +19,24 @@ public class withoutMaxButton extends JDialog implements Runnable {
 		setTitle("Tiny Clock!-WEILI");
 		URL jfpng = this.getClass().getResource("/pic/clock.png");
 		setIconImage(Toolkit.getDefaultToolkit().createImage(jfpng));
-		setFont(new Font("Consolas", Font.BOLD, 20)); // 显示调用时钟的字体
+		setFont(new Font("Consolas", Font.BOLD, 20)); 
 
 		start();
 
 		setAlwaysOnTop(true);
 		setResizable(false);
-		setSize(250, 60);// 设置界面大小
-		setVisible(true); // 窗口可视
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // 关闭窗口的时候退出程序
+		setSize(250, 60);
+		setVisible(true); 
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); 
 	}
 
 	public void start() {
-		if (null == clock) {
-			// 实例化进程
+		if (null == clock) {	
 			clock = new Thread(this);
-			// jdk提供 一旦调用start方法，则会通过JVM找到run()方法
 			clock.start();
 		}
 	}
 
-	// 运行进程
 	public void run() {
 		while (clock != null) {
 			repaint();
@@ -56,10 +53,10 @@ public class withoutMaxButton extends JDialog implements Runnable {
 		String timeInfo = "";
 		timeInfo = sdfTimeInfo.format(new Date());
 
-		g.setColor(Color.WHITE); // 设置颜色 白色
-		Dimension dim = getSize(); // 得到窗口大小
+		g.setColor(Color.WHITE); 
+		Dimension dim = getSize(); 
 		g.fillRect(0, 0, dim.width, dim.height);
-		g.setColor(Color.GRAY); // 橙色
+		g.setColor(Color.GRAY); 
 		g.drawString(timeInfo, 20, 50);
 	}
 
