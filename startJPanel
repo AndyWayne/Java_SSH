@@ -12,66 +12,56 @@ import java.util.Locale;
 
 import javax.swing.JFrame;
 
-/**
- * 1、画界面 2、绘制界面（显示静态时间） 3、调用线程刷新界面
- */
-
 @SuppressWarnings("serial")
 public class startJPanel extends JFrame implements Runnable {
 	Thread clock;
 
 	public startJPanel() {		
-		super("Andy Wayne"); // 调用父类的构造函数
+		super("Andy Wayne"); 
 		
 		URL jfpng = this.getClass().getResource("/pic/clock.png");
 		setIconImage(Toolkit.getDefaultToolkit().createImage(jfpng));
 		setAlwaysOnTop(true);
-		setFont(new Font("Consolas", Font.PLAIN, 20)); // 显示调用时钟的字体
+		setFont(new Font("Consolas", Font.PLAIN, 20)); 
 
 		start();
 
 		setResizable(false);
-		setSize(250, 60);// 设置界面大小
-		setVisible(true); // 窗口可视
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 关闭窗口的时候退出程序
+		setSize(250, 60);
+		setVisible(true); 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	}
 
 	public void start() {
-		if (null == clock) {
-			// 实例化进程
-			clock = new Thread(this);
-			// jdk提供 一旦调用start方法，则会通过JVM找到run()方法
+		if (null == clock) {			
+			clock = new Thread(this);			
 			clock.start();
 		}
 	}
-
-	// 运行进程
+	
 	public void run() {
 		while (clock != null) {
-			repaint(); // 重绘界面
+			repaint(); 
 			try {
-				Thread.sleep(1000); // 线程暂停1000毫秒
+				Thread.sleep(1000); 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
-	// 重写组件的paint方法
+	
 	public void paint(Graphics g) {
-		SimpleDateFormat sdfTimeInfo = new SimpleDateFormat("MM-dd" + "|" + "HH:mm:ss" + "|" + "E",Locale.ENGLISH);
-		
+		SimpleDateFormat sdfTimeInfo = new SimpleDateFormat("MM-dd" + "|" + "HH:mm:ss" + "|" + "E",Locale.ENGLISH);		
 		String timeInfo = "";
 		timeInfo = sdfTimeInfo.format(new Date());
 
-		g.setColor(Color.WHITE); // 设置颜色 白色
-		Dimension dim = getSize(); // 得到窗口大小
+		g.setColor(Color.WHITE); 
+		Dimension dim = getSize(); 
 		g.fillRect(0, 0, dim.width, dim.height);
-		g.setColor(Color.GRAY); // 橙色
+		g.setColor(Color.GRAY); 
 		g.drawString(timeInfo, 25, 50);
 	}
 
-	// 程序的入口
 	public static void main(String[] args) {
 		new startJPanel();
 	}
